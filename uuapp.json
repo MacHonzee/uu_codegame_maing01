@@ -12,6 +12,39 @@
       "appDeploymentUri": null
     }
   },
-  "uu_codegame_maing01-hi": {},
+  "uu_codegame_maing01-hi": {
+    "componentList": [
+      {
+        "code": "UuCodegame.Routes.Assignments",
+        "name": "Assignments",
+        "tagList": [
+          "UuCodegame",
+          "Routes",
+          "Assignments"
+        ],
+        "docCode": "UuCodegameRoutesAssignments",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuCodegame.Routes.Assignments />"
+      },
+      {
+        "code": "UuCodegame.Bricks.AssignmentView",
+        "name": "AssignmentView",
+        "tagList": [
+          "UuCodegame",
+          "Bricks",
+          "AssignmentView"
+        ],
+        "docCode": "UuCodegameBricksAssignmentView",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuCodegame.Bricks.AssignmentView />"
+      }
+    ]
+  },
   "uu_codegame_maing01-server": {}
 }

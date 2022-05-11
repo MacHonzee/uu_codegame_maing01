@@ -9,6 +9,10 @@ const Lsi = {
       cs: "Vítejte",
       en: "Welcome",
     },
+    assignments: {
+      cs: "Zadání",
+      en: "Assignments"
+    },
     about: {
       cs: "O aplikaci",
       en: "About Application",
@@ -83,6 +87,14 @@ const Lsi = {
       en: "The application is not connected to a Business Territory.",
     },
   },
+
+  assignments: {
+    mainHeader: {
+      cs: "Zadání",
+      en: "Assignments"
+    }
+  }
+
 };
 
 export default Lsi;
