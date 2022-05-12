@@ -1,13 +1,9 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { createComponent, useEffect, useRoute } from "uu5g05";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar";
 import * as UU5 from "uu5g04";
-import "uu5g04-bricks";
-import { withRoute } from "uu_plus4u5g02-app";
-import Home from "./home";
-import LSI from "../config/lsi";
-import AssignmentView from "../bricks/assignment-view";
+import RouteBar from "../core/route-bar";
+import AssignmentBody from "../bricks/assignment-body";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -21,12 +17,12 @@ const Css = {
     Config.Css.css({
       textAlign: "center",
       minHeight: "100%"
-    }),
+    })
 };
 
-let Assignments = createComponent({
+const AssignDetail = createComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Assignments",
+  uu5Tag: Config.TAG + "AssignDetail",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -40,44 +36,29 @@ let Assignments = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
+    const [params,] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:interface
     //@@viewOff:interface
 
     //@@viewOn:render
-    const testAssignments = () => {
-      let x = [];
-
-      for (let i = 0; i < 10; i++) {
-        x.push(<AssignmentView key={i} id={i} difficulty={2}  name={"Test " + i}/>)
-      }
-
-      return x;
-    }
-
     return (
       <>
         <RouteBar/>
         <UU5.Bricks.Well className={Css.Well()}>
 
-          <UU5.Bricks.Header>
-            <UU5.Bricks.Lsi lsi={LSI.assignments.mainHeader}/>
-          </UU5.Bricks.Header>
-
-          {testAssignments()}
+          <AssignmentBody name={"Assignment"}/>
 
         </UU5.Bricks.Well>
-
       </>
     );
+
     //@@viewOff:render
   },
 });
 
-Assignments = withRoute(Assignments, { authenticated: true });
-
 //@@viewOn:exports
-export { Assignments };
-export default Assignments;
+export { AssignDetail };
+export default AssignDetail;
 //@@viewOff:exports

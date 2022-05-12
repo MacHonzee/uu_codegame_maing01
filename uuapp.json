@@ -43,6 +43,36 @@
         "imageUri": "",
         "uuEccReady": false,
         "template": "<UuCodegame.Bricks.AssignmentView />"
+      },
+      {
+        "code": "UuCodegame.Routes.AssignDetail",
+        "name": "AssignDetail",
+        "tagList": [
+          "UuCodegame",
+          "Routes",
+          "AssignDetail"
+        ],
+        "docCode": "UuCodegameRoutesAssignDetail",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuCodegame.Routes.AssignDetail />"
+      },
+      {
+        "code": "UuCodegame.Bricks.AssignmentBody",
+        "name": "AssignmentBody",
+        "tagList": [
+          "UuCodegame",
+          "Bricks",
+          "AssignmentBody"
+        ],
+        "docCode": "UuCodegameBricksAssignmentBody",
+        "desc": "",
+        "icon": "",
+        "imageUri": "",
+        "uuEccReady": false,
+        "template": "<UuCodegame.Bricks.AssignmentBody />"
       }
     ]
   },

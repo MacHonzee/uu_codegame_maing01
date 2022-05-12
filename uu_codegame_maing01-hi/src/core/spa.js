@@ -7,6 +7,8 @@ import Plus4U5App from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
 import Assignments from "../routes/assignments";
+import AssignDetail from "../routes/assign-detail";
+import * as UU5 from "uu5g04";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,7 +19,8 @@ const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.
 const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
-  assignments : (props) => <Assignments{...props}/>,
+  assignments: (props) => <Assignments{...props}/>,
+  detail: (props) => <AssignDetail{...props}/>,
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
   controlPanel: (props) => <ControlPanel {...props} />,
@@ -59,7 +62,7 @@ const Spa = createVisualComponent({
     return (
       <Plus4U5.SpaProvider initialLanguageList={["en", "cs"]}>
         <Uu5Elements.ModalBus>
-          <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+          <Plus4U5App.Spa routeMap={ROUTE_MAP}/>
         </Uu5Elements.ModalBus>
       </Plus4U5.SpaProvider>
     );
