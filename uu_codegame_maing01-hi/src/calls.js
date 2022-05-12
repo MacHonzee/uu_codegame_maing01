@@ -22,6 +22,21 @@ const Calls = {
   //   return Calls.call("get", commandUri, dtoIn);
   // },
 
+  getAssignments() {
+    const commandUri = Calls.getCommandUri("getAssignments");
+    return Calls.call("get", commandUri, {});
+  },
+
+  getFullAssignment(dtoIn) {
+    const commandUri = Calls.getCommandUri("getFullAssignment");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  addUser(dtoIn) {
+    const commandUri = Calls.getCommandUri("addUser");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri, {});

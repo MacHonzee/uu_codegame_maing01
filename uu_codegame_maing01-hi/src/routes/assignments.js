@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { createComponent, useEffect, useState } from "uu5g05";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar";
 import * as UU5 from "uu5g04";
@@ -8,6 +8,7 @@ import { withRoute } from "uu_plus4u5g02-app";
 import Home from "./home";
 import LSI from "../config/lsi";
 import AssignmentView from "../bricks/assignment-view";
+import Calls from "../calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -40,20 +41,32 @@ let Assignments = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
+    const [assignments, setAssignments] = useState([]);
     //@@viewOff:private
 
     //@@viewOn:interface
+    useEffect(() => {
+      getAssignments();
+    }, []);
+
     //@@viewOff:interface
 
     //@@viewOn:render
-    const testAssignments = () => {
-      let x = [];
+    const getAssignments = async () => {
+      try {
+        const recievedAssignments = await Calls.getAssignments();
 
-      for (let i = 0; i < 10; i++) {
-        x.push(<AssignmentView key={i} id={i} difficulty={2}  name={"Test " + i}/>)
+        let assignViews = [];
+        for (const [i, assign] of recievedAssignments.entries()) {
+          assignViews.push(<AssignmentView key={i} {...assign}/>);
+        }
+
+        setAssignments(assignViews);
+
+      } catch (ek) {
+        setAssignments([]);
       }
 
-      return x;
     }
 
     return (
@@ -65,7 +78,7 @@ let Assignments = createComponent({
             <UU5.Bricks.Lsi lsi={LSI.assignments.mainHeader}/>
           </UU5.Bricks.Header>
 
-          {testAssignments()}
+          {assignments}
 
         </UU5.Bricks.Well>
 

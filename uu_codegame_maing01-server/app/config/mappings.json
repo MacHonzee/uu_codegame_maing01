@@ -15,6 +15,26 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "createAssignment": {
+        "realization": "api/controllers/AssignmentsController.createAssignment",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "getAssignments": {
+        "realization": "api/controllers/AssignmentsController.getAssignments",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "getFullAssignment": {
+        "realization": "api/controllers/AssignmentsController.getFullAssignment",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "addUser": {
+        "realization": "api/controllers/UsersController.addUser",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

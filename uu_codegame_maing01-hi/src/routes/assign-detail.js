@@ -1,9 +1,10 @@
 //@@viewOn:imports
-import { createComponent, useEffect, useRoute } from "uu5g05";
+import { createComponent, useEffect, useRoute, useState } from "uu5g05";
 import Config from "./config/config.js";
 import * as UU5 from "uu5g04";
 import RouteBar from "../core/route-bar";
 import AssignmentBody from "../bricks/assignment-body";
+import Calls from "../calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -36,10 +37,34 @@ const AssignDetail = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
-    const [params,] = useRoute();
+    const [URLparams,] = useRoute();
+
+    const [bodies, setBodies] = useState([]);
+    const [name, setName] = useState("");
     //@@viewOff:private
 
     //@@viewOn:interface
+    useEffect(() => {
+      getBodies();
+    }, []);
+
+    const getBodies = async () => {
+      try {
+        const myUUId = UU5.Environment.getSession().getIdentity().uuIdentity;
+        await Calls.addUser({ userId: myUUId, completedParts: [] });
+
+        let assignment = (await Calls.getFullAssignment({ id: URLparams.params.id, userId: myUUId })).assignment;
+        setName(assignment.name);
+
+        setBodies(assignment.parts.map((part, i) =>
+          <AssignmentBody key={i} description={part.description} input={part.input}/>
+        ))
+
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     //@@viewOff:interface
 
     //@@viewOn:render
@@ -48,7 +73,9 @@ const AssignDetail = createComponent({
         <RouteBar/>
         <UU5.Bricks.Well className={Css.Well()}>
 
-          <AssignmentBody name={"Assignment"}/>
+          <UU5.Bricks.Header>{name}</UU5.Bricks.Header>
+
+          {bodies}
 
         </UU5.Bricks.Well>
       </>

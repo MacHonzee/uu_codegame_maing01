@@ -15,7 +15,7 @@ const Css = {
   Card: () =>
     Config.Css.css({
       textAlign: "center",
-      padding: "1%"
+      padding: "1%",
     }),
   Button: () =>
     Config.Css.css({
@@ -55,9 +55,11 @@ const AssignmentView = createComponent({
       <UU5.Bricks.Card width={300} className={Css.Card()}>
         <UU5.Bricks.Header level={6}>{props.name}</UU5.Bricks.Header>
         <UU5.Bricks.Line/>
+
         <UU5.Bricks.Paragraph>
-          {props.description}
+          {props.parts[0].description}
         </UU5.Bricks.Paragraph>
+
         <UU5.Bricks.Rating value={props.difficulty} icon={UU5.Icons.point} count={6}/>
         <br/>
         <UU5.Bricks.Button onClick={openAssignment} colorSchema={"blue"} className={Css.Button()}>Let's go :D!</UU5.Bricks.Button>

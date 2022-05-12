@@ -6,6 +6,12 @@
       "schemaMap": {
         "codegameMain": {
           "realization": "dao/CodegameMainMongo"
+        },
+        "assignments": {
+          "realization": "dao/AssignmentsMongo"
+        },
+        "users": {
+          "realization": "dao/UsersMongo"
         }
       }
     }

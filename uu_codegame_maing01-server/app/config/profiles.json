@@ -1,11 +1,10 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Public"],
-    "useCaseMap": {
-    }
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],
+    "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Public"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -16,7 +15,23 @@
       },
       "sys/uuAppWorkspace/initUve": {
         "sysStateList": ["created"],
-        "profileList": ["Public", "AwidLicenseOwner"]
+        "profileList": ["Public","AwidLicenseOwner"]
+      },
+      "createAssignment": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "getAssignments": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "getFullAssignment": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "addUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

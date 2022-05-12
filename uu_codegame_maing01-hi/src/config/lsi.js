@@ -93,6 +93,22 @@ const Lsi = {
       cs: "Zadání",
       en: "Assignments"
     }
+  },
+
+  assignmentBody: {
+    description: {
+      cs: "Popis",
+      en: "Description"
+    },
+    input: {
+      cs: "Vstup",
+      en: "Input"
+    },
+    answer: {
+      cs: "Odpověď",
+      en: "Answer"
+    }
+
   }
 
 };
