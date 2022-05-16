@@ -35,6 +35,31 @@
         "realization": "api/controllers/UsersController.addUser",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "createSolvingSession": {
+        "realization": "api/controllers/SolvingSessionsController.createSolvingSession",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "updateSolvingSession": {
+        "realization": "api/controllers/SolvingSessionsController.updateSolvingSession",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "getInput": {
+        "realization": "api/controllers/SolvingSessionsController.getInput",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "validateResult": {
+        "realization": "api/controllers/SolvingSessionsController.validateResult",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "getSession": {
+        "realization": "api/controllers/SolvingSessionsController.getSession",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

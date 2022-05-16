@@ -4,6 +4,7 @@ import Config from "./config/config.js";
 import * as UU5 from "uu5g04";
 import "uu5g04-forms";
 import Lsi from "../config/lsi";
+import Calls from "../calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -46,32 +47,74 @@ const AssignmentBody = createComponent({
     //@@viewOff:private
 
     //@@viewOn:interface
+
+    const loadInput = async () => {
+
+      try {
+        let input = await Calls.getInput({
+          solver: props.session.solver,
+          assignmentId: props.session.assignmentId,
+          inputScriptPath: props.session.scriptPath
+        });
+
+        alert(input.generatedInput);
+
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+
+    const postAnswer = async (answer) => {
+
+      if (!answer) return;
+
+      try {
+        let currentInput = (await Calls.getSolvingSession({
+          solver: props.session.solver,
+          assignmentId: props.session.assignmentId,
+        })).session.input;
+
+        let valid = await Calls.validateAnswer({
+          solver: props.session.solver,
+          assignmentId: props.session.assignmentId,
+          inputScriptPath: props.session.scriptPath,
+          usersAnswer: answer,
+          originalInput: currentInput
+        });
+
+        console.log(valid);
+      } catch (e) {
+        console.log(e.message);
+      }
+
+    };
+
     //@@viewOff:interface
     //@@viewOn:render
     return (
-        <UU5.Bricks.Div className={Css.Description()}>
-          <UU5.Bricks.Card style={{ padding: "2%" }}>
-            <UU5.Bricks.Header level={3}>
-              <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.description}/>
-            </UU5.Bricks.Header>
-            <UU5.Bricks.Paragraph>{props.description}</UU5.Bricks.Paragraph>
+      <UU5.Bricks.Div className={Css.Description()}>
+        <UU5.Bricks.Card style={{ padding: "2%" }}>
+          <UU5.Bricks.Header level={3}>
+            <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.description}/>
+          </UU5.Bricks.Header>
+          <UU5.Bricks.Paragraph>{props.description}</UU5.Bricks.Paragraph>
 
-            <UU5.Bricks.Header level={3}>
-              <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.input}/>
-            </UU5.Bricks.Header>
-            <UU5.Bricks.Button colorSchema={"blue"}>Get input :D!</UU5.Bricks.Button>
+          <UU5.Bricks.Header level={3}>
+            <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.input}/>
+          </UU5.Bricks.Header>
+          <UU5.Bricks.Button onClick={loadInput} colorSchema={"blue"}>Get input :D!</UU5.Bricks.Button>
 
-            <UU5.Bricks.Header level={3}>
-              <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.answer}/>
-            </UU5.Bricks.Header>
+          <UU5.Bricks.Header level={3}>
+            <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.answer}/>
+          </UU5.Bricks.Header>
 
-            <UU5.Forms.Form onSave={(opt) => console.log(opt.values)}>
-              <UU5.Forms.Text name={"answer"} className={Css.Inputs()}/>
-              <UU5.Forms.Controls/>
-            </UU5.Forms.Form>
+          <UU5.Forms.Form onSave={(opt) => postAnswer(opt.values.answer)}>
+            <UU5.Forms.Text name={"answer"} className={Css.Inputs()}/>
+            <UU5.Forms.Controls/>
+          </UU5.Forms.Form>
 
-          </UU5.Bricks.Card>
-        </UU5.Bricks.Div>
+        </UU5.Bricks.Card>
+      </UU5.Bricks.Div>
     );
     //@@viewOff:render
   },

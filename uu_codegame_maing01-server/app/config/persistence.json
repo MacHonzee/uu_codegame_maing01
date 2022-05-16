@@ -12,6 +12,9 @@
         },
         "users": {
           "realization": "dao/UsersMongo"
+        },
+        "solvingSessions": {
+          "realization": "dao/SolvingSessionsMongo"
         }
       }
     }

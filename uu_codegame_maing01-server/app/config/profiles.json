@@ -32,6 +32,26 @@
       "addUser": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "createSolvingSession": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "updateSolvingSession": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "getInput": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "validateResult": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "getSession": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

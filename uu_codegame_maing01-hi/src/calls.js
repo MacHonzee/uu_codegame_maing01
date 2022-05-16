@@ -37,6 +37,31 @@ const Calls = {
     return Calls.call("post", commandUri, dtoIn);
   },
 
+  createSolvingSession(dtoIn) {
+    const commandUri = Calls.getCommandUri("createSolvingSession");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  updateSolvingSession(dtoIn) {
+    const commandUri = Calls.getCommandUri("updateSolvingSession");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  getSolvingSession(dtoIn) {
+    const commandUri = Calls.getCommandUri("getSession");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  getInput(dtoIn) {
+    const commandUri = Calls.getCommandUri("getInput");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  validateAnswer(dtoIn) {
+    const commandUri = Calls.getCommandUri("validateResult");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   loadIdentityProfiles() {
     const commandUri = Calls.getCommandUri("sys/uuAppWorkspace/initUve");
     return Calls.call("get", commandUri, {});

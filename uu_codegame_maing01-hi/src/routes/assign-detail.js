@@ -50,14 +50,27 @@ const AssignDetail = createComponent({
 
     const getBodies = async () => {
       try {
-        const myUUId = UU5.Environment.getSession().getIdentity().uuIdentity;
-        await Calls.addUser({ userId: myUUId, completedParts: [] });
+        const myUUId = UU5.Environment.getSession().getIdentity();
+        await Calls.addUser({ userId: myUUId.uuIdentity, completedParts: [] });
 
-        let assignment = (await Calls.getFullAssignment({ id: URLparams.params.id, userId: myUUId })).assignment;
+        let assignment = (await Calls.getFullAssignment({ id: URLparams.params.id, userId: myUUId.uuIdentity })).assignment;
         setName(assignment.name);
 
+        const currentSession = (await Calls.createSolvingSession({
+          solver: myUUId.uuIdentity,
+          solverName: myUUId.name,
+          assignmentId: assignment.parts[assignment.parts.length - 1].id,
+          input: "",
+          solution: "",
+          solutionTimestamp: "",
+          result: "notFilled",
+          difficulty: 0,
+        })).session;
+
+        currentSession.scriptPath = assignment.parts[assignment.parts.length - 1].input;
+
         setBodies(assignment.parts.map((part, i) =>
-          <AssignmentBody key={i} description={part.description} input={part.input}/>
+          <AssignmentBody session={currentSession} key={i} description={part.description} input={part.input}/>
         ))
 
       } catch (e) {

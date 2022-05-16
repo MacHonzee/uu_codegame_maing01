@@ -19,6 +19,13 @@ class UsersMongo extends UuObjectDao {
     return await super.findOne(filter);
   }
 
+  async updateOne(uuObject) {
+    let filter = {
+      userId: uuObject.userId
+    };
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
+  }
+
 }
 
 module.exports = UsersMongo;
