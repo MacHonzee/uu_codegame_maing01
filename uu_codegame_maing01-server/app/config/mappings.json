@@ -60,6 +60,11 @@
         "realization": "api/controllers/SolvingSessionsController.getSession",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "getUser": {
+        "realization": "api/controllers/UsersController.getUser",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

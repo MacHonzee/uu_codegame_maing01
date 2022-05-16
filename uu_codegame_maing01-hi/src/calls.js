@@ -57,6 +57,11 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  getUser(dtoIn) {
+    const commandUri = Calls.getCommandUri("getUser");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
   validateAnswer(dtoIn) {
     const commandUri = Calls.getCommandUri("validateResult");
     return Calls.call("post", commandUri, dtoIn);

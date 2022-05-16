@@ -123,7 +123,7 @@ class SolvingSessionsAbl {
         input: generatedInput
       });
     } catch (e) {
-      throw  e.message;
+      throw new Errors.GetSession.InvalidDtoIn({ cause: e });
     }
 
     return { generatedInput, uuAppErrorMap };
@@ -161,8 +161,10 @@ class SolvingSessionsAbl {
       Errors.CreateSolvingSession.InvalidDtoIn
     );
 
+    let foundSession = {};
+
     try {
-      let foundSession = await this.dao.getOne(dtoIn.solver, dtoIn.assignmentId);
+      foundSession = await this.dao.getOne(dtoIn.solver, dtoIn.assignmentId);
 
       if (foundSession === null) {
         await this.dao.create(dtoIn);
@@ -172,7 +174,7 @@ class SolvingSessionsAbl {
       throw e.message;
     }
 
-    let dtoOut = { session: dtoIn, uuAppErrorMap };
+    let dtoOut = { session: foundSession, uuAppErrorMap };
 
     return dtoOut;
   }

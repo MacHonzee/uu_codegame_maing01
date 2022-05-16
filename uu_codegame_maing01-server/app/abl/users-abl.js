@@ -9,6 +9,9 @@ const WARNINGS = {
   addUserUnsupportedKeys: {
     code: `${Errors.AddUser.UC_CODE}unsupportedKeys`,
   },
+  getUserUnsupportedKeys: {
+    code: `${Errors.GetUser.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class UsersAbl {
@@ -16,6 +19,29 @@ class UsersAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("users");
+  }
+
+  async getUser(awid, dtoIn) {
+    let validationResult = this.validator.validate("getUserDtoIn", dtoIn);
+    let uuAppErrorMap = {};
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      WARNINGS.getUserUnsupportedKeys,
+      Errors.AddUser.InvalidDtoIn
+    );
+
+    let dtoOut = { uuAppErrorMap };
+    try {
+      let user = await this.dao.getOne(dtoIn.userId);
+      dtoOut.user = user;
+    } catch (e) {
+      throw  e;
+    }
+
+    return dtoOut;
   }
 
   async addUser(awid, dtoIn) {
@@ -27,7 +53,7 @@ class UsersAbl {
       validationResult,
       uuAppErrorMap,
       WARNINGS.addUserUnsupportedKeys,
-      Errors.AddUser.InvalidDtoIn
+      Errors.GetUser.InvalidDtoIn
     );
 
     try {
@@ -36,7 +62,7 @@ class UsersAbl {
       return e
     }
 
-    let dtoOut = {user : dtoIn, uuAppErrorMap};
+    let dtoOut = { user: dtoIn, uuAppErrorMap };
 
     return dtoOut;
   }

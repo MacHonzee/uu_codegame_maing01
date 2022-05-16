@@ -107,8 +107,11 @@ const Lsi = {
     answer: {
       cs: "Odpověď",
       en: "Answer"
+    },
+    completed: {
+      cs: "Hotovka :D",
+      en: "Completed :D"
     }
-
   }
 
 };

@@ -5,6 +5,8 @@ import * as UU5 from "uu5g04";
 import RouteBar from "../core/route-bar";
 import AssignmentBody from "../bricks/assignment-body";
 import Calls from "../calls";
+import { withRoute } from "uu_plus4u5g02-app";
+import Assignments from "./assignments";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -21,7 +23,7 @@ const Css = {
     })
 };
 
-const AssignDetail = createComponent({
+let AssignDetail = createComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "AssignDetail",
   //@@viewOff:statics
@@ -67,14 +69,28 @@ const AssignDetail = createComponent({
           difficulty: 0,
         })).session;
 
+        const usersCompletedParts = (await Calls.getUser({ userId: myUUId.uuIdentity })).user.completedParts;
+
         currentSession.scriptPath = assignment.parts[assignment.parts.length - 1].input;
 
-        setBodies(assignment.parts.map((part, i) =>
-          <AssignmentBody session={currentSession} key={i} description={part.description} input={part.input}/>
+        setBodies(assignment.parts.map((part, i) => {
+
+            const completed = (usersCompletedParts.includes(part.id));
+
+            return (
+              <AssignmentBody
+                refresh = {getBodies}
+                completed={completed}
+                session={currentSession}
+                key={i}
+                description={part.description}
+                input={part.input}/>
+            );
+          }
         ))
 
       } catch (e) {
-        console.log(e);
+        console.log(e.message);
       }
     };
 
@@ -97,6 +113,8 @@ const AssignDetail = createComponent({
     //@@viewOff:render
   },
 });
+
+AssignDetail = withRoute(AssignDetail, { authenticated: true });
 
 //@@viewOn:exports
 export { AssignDetail };

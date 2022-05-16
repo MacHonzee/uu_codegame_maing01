@@ -4,7 +4,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/assignments-error.js");
-const crypto = require("crypto")
+const crypto = require("node:crypto");
 
 const WARNINGS = {
   createUnsupportedKeys: {
@@ -43,6 +43,7 @@ class AssignmentsAbl {
       let usersStats = await DaoFactory.getDao("users").getOne(dtoIn.userId);
 
       let partsToShow = [];
+      fullAssignment.partsCo = fullAssignment.parts.length;
 
       for (let index in fullAssignment.parts) {
 

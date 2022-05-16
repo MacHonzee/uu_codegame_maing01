@@ -14,6 +14,18 @@ const AddUser = {
   }
 };
 
+const GetUser = {
+  UC_CODE: `${USERS_ERROR_PREFIX}getUser/`,
+  InvalidDtoIn: class extends CodegameMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${GetUser.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  }
+};
+
 module.exports = {
+  GetUser,
   AddUser
 };

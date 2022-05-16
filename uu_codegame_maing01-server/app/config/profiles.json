@@ -52,6 +52,10 @@
       "getSession": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "getUser": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
