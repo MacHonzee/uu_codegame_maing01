@@ -21,6 +21,9 @@ const WARNINGS = {
   getSolvingSessionUnsupportedKeys: {
     code: `${Errors.GetSession.UC_CODE}unsupportedKeys`,
   },
+  updateRatingSessionUnsupportedKeys: {
+    code: `${Errors.UpdateSolvingSession.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class SolvingSessionsAbl {
@@ -28,6 +31,62 @@ class SolvingSessionsAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("solvingSessions");
+  }
+
+  async calculateUserDifficulty(awid, dtoIn) {
+
+    try {
+
+      let allAssignments = (await DaoFactory.getDao("assignments").getAll()).itemList;
+      allAssignments = allAssignments.map(assignment => {
+        assignment.parts = assignment.parts.map(part => part.id);
+        return assignment;
+      });
+
+      let allSessions = (await this.dao.getAll()).itemList;
+      allSessions = allSessions.filter(ses => ses.difficulty !== 0);
+
+      let assignmentRatings = [];
+
+      for (let assignment of allAssignments) {
+        let includedParts = allSessions.filter(ses => assignment.parts.includes(ses.assignmentId));
+        let averageDifficulty = includedParts.reduce((total, item) => total + item.difficulty, 0) / includedParts.length;
+
+        assignmentRatings.push({
+          assignmentId: assignment.id,
+          difficulty: Math.round(averageDifficulty)
+        });
+      }
+
+      return assignmentRatings;
+
+    } catch (e) {
+      throw e;
+    }
+
+  }
+
+  async updateRating(awid, dtoIn) {
+    let validationResult = this.validator.validate("updateSessionRatingDtoIn", dtoIn);
+    let uuAppErrorMap = {};
+
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      uuAppErrorMap,
+      WARNINGS.updateRatingSessionUnsupportedKeys,
+      Errors.UpdateRating.InvalidDtoIn
+    );
+
+    try {
+      await this.dao.update(dtoIn);
+    } catch (e) {
+      throw  e;
+    }
+
+    const dtoOut = { ...dtoIn, uuAppErrorMap };
+
+    return dtoOut;
   }
 
   async getSession(awid, dtoIn) {
@@ -167,7 +226,7 @@ class SolvingSessionsAbl {
       foundSession = await this.dao.getOne(dtoIn.solver, dtoIn.assignmentId);
 
       if (foundSession === null) {
-        await this.dao.create(dtoIn);
+        foundSession = await this.dao.create(dtoIn);
       }
 
     } catch (e) {

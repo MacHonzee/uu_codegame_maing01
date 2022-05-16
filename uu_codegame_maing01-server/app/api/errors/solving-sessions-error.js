@@ -58,7 +58,25 @@ const GetSession = {
   }
 };
 
+const UpdateRating = {
+  UC_CODE: `${SOLVING_SESSIONS_ERROR_PREFIX}updateRating/`,
+  InvalidDtoIn: class extends CodegameMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${UpdateRating.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  }
+};
+
+const CalculateUserDifficulty = {
+  UC_CODE: `${SOLVING_SESSIONS_ERROR_PREFIX}calculateUserDifficulty/`,
+  
+};
+
 module.exports = {
+  CalculateUserDifficulty,
+  UpdateRating,
   GetSession,
   ValidateResult,
   GetInput,

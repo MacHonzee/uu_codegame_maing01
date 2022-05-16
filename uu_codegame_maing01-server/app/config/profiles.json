@@ -56,6 +56,14 @@
       "getUser": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "updateRating": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "calculateUserDifficulty": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

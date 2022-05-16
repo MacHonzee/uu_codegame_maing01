@@ -19,6 +19,10 @@ class SolvingSessionsMongo extends UuObjectDao {
     return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
 
+  async getAll() {
+    return await super.find({});
+  }
+
   async getOne(solver, assignmentId) {
     let filter = {
       solver,

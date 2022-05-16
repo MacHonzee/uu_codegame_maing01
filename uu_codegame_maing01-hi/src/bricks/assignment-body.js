@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createComponent } from "uu5g05";
+import { createComponent, useRoute, useState } from "uu5g05";
 import Config from "./config/config.js";
 import * as UU5 from "uu5g04";
 import "uu5g04-forms";
@@ -44,6 +44,8 @@ const AssignmentBody = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
+    const [rating, setRating] = useState(props.prevSession.difficulty);
+    const [, setRoute] = useRoute();
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -57,7 +59,11 @@ const AssignmentBody = createComponent({
           inputScriptPath: props.session.scriptPath
         });
 
-        alert(input.generatedInput);
+        AssignmentBody.modal.open({
+          size: "m",
+          header: <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.input}/>,
+          content: input.generatedInput
+        });
 
       } catch (e) {
         console.log(e.message);
@@ -106,7 +112,8 @@ const AssignmentBody = createComponent({
             <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.answer}/>
           </UU5.Bricks.Header>
 
-          <UU5.Forms.Form onSave={(opt) => postAnswer(opt.values.answer)}>
+          <UU5.Forms.Form onSave={(opt) => postAnswer(opt.values.answer)}
+                          onCancel={() => setRoute("assignments")}>
             <UU5.Forms.Text name={"answer"} className={Css.Inputs()}/>
             <UU5.Forms.Controls/>
           </UU5.Forms.Form>
@@ -121,6 +128,16 @@ const AssignmentBody = createComponent({
 
     };
 
+    const updateRating = async (value) => {
+      setRating(value);
+
+      await Calls.updateDifficultyRating({
+        solver: props.session.solver,
+        assignmentId: props.prevSession.assignmentId,
+        difficulty: value
+      });
+    }
+
     //@@viewOff:interface
     //@@viewOn:render
     return (
@@ -133,7 +150,13 @@ const AssignmentBody = createComponent({
 
           {renderSecondPart()}
 
+          <UU5.Bricks.Header level={5}>
+            <UU5.Bricks.Lsi lsi={Lsi.assignmentBody.rating}/>
+          </UU5.Bricks.Header>
+          <UU5.Bricks.Rating value={rating} icon={UU5.Icons.point} onClick={updateRating}/>
+
         </UU5.Bricks.Card>
+        <UU5.Bricks.Modal ref_={modal => AssignmentBody.modal = modal}/>
       </UU5.Bricks.Div>
     );
     //@@viewOff:render

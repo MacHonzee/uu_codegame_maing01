@@ -65,6 +65,16 @@
         "realization": "api/controllers/UsersController.getUser",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "updateRating": {
+        "realization": "api/controllers/SolvingSessionsController.updateRating",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "calculateUserDifficulty": {
+        "realization": "api/controllers/SolvingSessionsController.calculateUserDifficulty",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

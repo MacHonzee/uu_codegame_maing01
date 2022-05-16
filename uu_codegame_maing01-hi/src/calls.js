@@ -62,6 +62,16 @@ const Calls = {
     return Calls.call("get", commandUri, dtoIn);
   },
 
+  updateDifficultyRating(dtoIn) {
+    const commandUri = Calls.getCommandUri("updateRating");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
+  getUserDifficultyRatings() {
+    const commandUri = Calls.getCommandUri("calculateUserDifficulty");
+    return Calls.call("get", commandUri, {});
+  },
+
   validateAnswer(dtoIn) {
     const commandUri = Calls.getCommandUri("validateResult");
     return Calls.call("post", commandUri, dtoIn);

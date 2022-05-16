@@ -3,6 +3,14 @@ const SolvingSessionsAbl = require("../../abl/solving-sessions-abl.js");
 
 class SolvingSessionsController {
 
+  calculateUserDifficulty(ucEnv) {
+    return SolvingSessionsAbl.calculateUserDifficulty(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
+  updateRating(ucEnv) {
+    return SolvingSessionsAbl.updateRating(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   getSession(ucEnv) {
     return SolvingSessionsAbl.getSession(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

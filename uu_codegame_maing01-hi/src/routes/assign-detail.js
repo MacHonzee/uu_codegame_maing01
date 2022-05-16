@@ -41,7 +41,7 @@ let AssignDetail = createComponent({
     const { children } = props;
     const [URLparams,] = useRoute();
 
-    const [bodies, setBodies] = useState([]);
+    const [bodies, setBodies] = useState(<UU5.Bricks.Loader/>);
     const [name, setName] = useState("");
     //@@viewOff:private
 
@@ -69,6 +69,17 @@ let AssignDetail = createComponent({
           difficulty: 0,
         })).session;
 
+        let otherSessions = await Promise.all(assignment.parts.map(async (part) => {
+
+          const session = await Calls.getSolvingSession({
+            solver: myUUId.uuIdentity,
+            assignmentId: part.id
+          });
+          return session.session;
+        }));
+
+        otherSessions = otherSessions.filter(ses => ses !== null);
+
         const usersCompletedParts = (await Calls.getUser({ userId: myUUId.uuIdentity })).user.completedParts;
 
         currentSession.scriptPath = assignment.parts[assignment.parts.length - 1].input;
@@ -77,10 +88,22 @@ let AssignDetail = createComponent({
 
             const completed = (usersCompletedParts.includes(part.id));
 
+            const ses = otherSessions.find(otherSes => part.id === otherSes.assignmentId);
+
+            let prevSession = {};
+
+            if (ses !== undefined) {
+              prevSession = {
+                difficulty: ses.difficulty,
+                assignmentId: ses.assignmentId
+              };
+            }
+
             return (
               <AssignmentBody
-                refresh = {getBodies}
+                refresh={getBodies}
                 completed={completed}
+                prevSession={prevSession}
                 session={currentSession}
                 key={i}
                 description={part.description}

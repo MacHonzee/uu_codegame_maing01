@@ -31,3 +31,9 @@ const getSolvingSessionDtoIn = shape({
   solver: string().isRequired(),
   assignmentId: string().isRequired()
 });
+
+const updateSessionRatingDtoIn = shape({
+  solver: string().isRequired(),
+  assignmentId: string().isRequired(),
+  difficulty: number().isRequired()
+});

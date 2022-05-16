@@ -41,7 +41,7 @@ let Assignments = createComponent({
   render(props) {
     //@@viewOn:private
     const { children } = props;
-    const [assignments, setAssignments] = useState([]);
+    const [assignments, setAssignments] = useState(<UU5.Bricks.Loading/>);
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -54,7 +54,13 @@ let Assignments = createComponent({
     //@@viewOn:render
     const getAssignments = async () => {
       try {
-        const recievedAssignments = await Calls.getAssignments();
+        let recievedAssignments = await Calls.getAssignments();
+        const recievedDifficulties = await Calls.getUserDifficultyRatings();
+
+        recievedAssignments = recievedAssignments.map(assign => {
+          assign.userDifficulty = recievedDifficulties.find((diff) => diff.assignmentId === assign.id).difficulty;
+          return assign;
+        });
 
         let assignViews = [];
         for (const [i, assign] of recievedAssignments.entries()) {
@@ -63,7 +69,7 @@ let Assignments = createComponent({
 
         setAssignments(assignViews);
 
-      } catch (ek) {
+      } catch (e) {
         setAssignments([]);
       }
 

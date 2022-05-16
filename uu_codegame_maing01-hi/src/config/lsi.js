@@ -111,6 +111,10 @@ const Lsi = {
     completed: {
       cs: "Hotovka :D",
       en: "Completed :D"
+    },
+    rating: {
+      cs : "Tvé hodnocení :-)",
+      en : "Your rating :-)"
     }
   }
 
