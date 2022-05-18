@@ -80,6 +80,10 @@ const AssignmentBody = createComponent({
           assignmentId: props.session.assignmentId,
         })).session.input;
 
+        if (currentInput.includes('"')) {
+          currentInput = currentInput.substring(1, currentInput.lastIndexOf('"'));
+        }
+
         let valid = await Calls.validateAnswer({
           solver: props.session.solver,
           assignmentId: props.session.assignmentId,

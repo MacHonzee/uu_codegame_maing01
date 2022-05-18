@@ -1,16 +1,18 @@
+const isNumber = require("../Tools/NumberCheck");
+
 class generator {
 
   getInput() {
-    const input = "Edge length: " + Math.round(Math.random() * 10);
+    const input = Math.round(Math.random() * 10);
     return input;
   }
 
   validateInput(originalInput, usersAnswer) {
-
     try {
-      originalInput = originalInput.split(":")[1].trim();
 
-      let expectedSolution = parseInt(originalInput) * parseInt(originalInput);
+      if (!isNumber(usersAnswer) || !isNumber(originalInput)) return false;
+
+      let expectedSolution = Math.pow(originalInput, 2);
 
       return expectedSolution === parseInt(usersAnswer);
 

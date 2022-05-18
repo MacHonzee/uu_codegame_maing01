@@ -5,6 +5,7 @@ const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/assignments-error.js");
 const crypto = require("node:crypto");
+const LocalValidaionHelper = require("../components/Local-validation-helper");
 
 const WARNINGS = {
   createUnsupportedKeys: {
@@ -22,18 +23,8 @@ class AssignmentsAbl {
     this.dao = DaoFactory.getDao("assignments");
   }
 
-  async getFullAssignment(awid, dtoIn) {
-    let validationResult = this.validator.validate("getAssignmentDtoIn", dtoIn);
-
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.getFullAssignmentUnsupportedKeys,
-      Errors.CreateAssignment.InvalidDtoIn
-    );
+  async getFullAssignment(uri, dtoIn) {
+   let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 
     let dtoOut = { uuAppErrorMap };
 
@@ -69,7 +60,7 @@ class AssignmentsAbl {
     return dtoOut;
   }
 
-  async getAssignments(awid, dtoIn) {
+  async getAssignments(uri, dtoIn) {
     let assignments = {};
 
     try {
@@ -83,17 +74,8 @@ class AssignmentsAbl {
     return dtoOut;
   }
 
-  async createAssignment(awid, dtoIn) {
-    let validationResult = this.validator.validate("assignmentDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.createUnsupportedKeys,
-      Errors.CreateAssignment.InvalidDtoIn
-    );
+  async createAssignment(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 
     dtoIn.parts = dtoIn.parts.map(x => {
       return {

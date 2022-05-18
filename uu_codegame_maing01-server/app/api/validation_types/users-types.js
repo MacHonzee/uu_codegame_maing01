@@ -1,10 +1,10 @@
 /* eslint-disable */
 
-const userDtoIn = shape({
+const addUserDtoInType = shape({
   userId: string().isRequired(),
   completedParts: array(string()).isRequired()
 });
 
-const getUserDtoIn = shape({
+const getUserDtoInType = shape({
   userId: string().isRequired()
 });

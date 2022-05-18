@@ -1,8 +1,9 @@
+const isNumber = require("../Tools/NumberCheck");
+
 class generator {
 
   getInput() {
-    const input = "Triangle info: Base length: {" + Math.round(Math.random() * 10)
-      + "} Height length: (" + Math.round(Math.random() * 10) + ")";
+    const input = Math.round(Math.random() * 10) + "," + Math.round(Math.random() * 10);
 
     return input;
   }
@@ -10,14 +11,14 @@ class generator {
   validateInput(originalInput, usersAnswer) {
 
     try {
-      let base = originalInput.substring(originalInput.indexOf("{") + 1, originalInput.indexOf("}"));
-      let height = originalInput.substring(originalInput.indexOf("(") + 1, originalInput.indexOf(")"));
+      const parts = originalInput.split(",");
 
-      base = parseInt(base);
-      height = parseInt(height);
+      let base = parts[0];
+      let height = parts[1];
+
+      if (!isNumber(base) || !isNumber(height)) return false;
 
       let expectedSolution = (base * height) / 2;
-
       return expectedSolution === parseInt(usersAnswer);
 
     } catch {

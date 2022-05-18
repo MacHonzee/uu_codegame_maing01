@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const assignmentDtoIn = shape({
+const createAssignmentDtoInType = shape({
   name: string().isRequired(),
   parts: array(shape({
     description: string().isRequired(),
@@ -9,7 +9,7 @@ const assignmentDtoIn = shape({
   difficulty: number().isRequired()
 });
 
-const getAssignmentDtoIn = shape({
+const getFullAssignmentDtoInType = shape({
   id: string().isRequired(),
   userId : string().isRequired()
 });

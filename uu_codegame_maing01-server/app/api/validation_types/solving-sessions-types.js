@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const sessionDtoIn = shape({
+const createSolvingSessionDtoInType = shape({
 
   solver: string().isRequired(),
   solverName: string().isRequired(),
@@ -13,26 +13,28 @@ const sessionDtoIn = shape({
 
 });
 
-const getInputDtoIn = shape({
+const updateSolvingSessionDtoInType = createSolvingSessionDtoInType;
+
+const getInputDtoInType = shape({
   solver: string().isRequired(),
   assignmentId: string().isRequired(),
   inputScriptPath: string().isRequired()
 });
 
-const validateResultDtoIn = shape({
+const validateResultDtoInType = shape({
   solver: string().isRequired(),
   assignmentId: string().isRequired(),
   inputScriptPath: string().isRequired(),
-  usersAnswer : string().isRequired(),
-  originalInput : string().isRequired()
+  usersAnswer: string().isRequired(),
+  originalInput: string().isRequired()
 });
 
-const getSolvingSessionDtoIn = shape({
+const getSessionDtoInType = shape({
   solver: string().isRequired(),
   assignmentId: string().isRequired()
 });
 
-const updateSessionRatingDtoIn = shape({
+const updateRatingDtoInType = shape({
   solver: string().isRequired(),
   assignmentId: string().isRequired(),
   difficulty: number().isRequired()

@@ -1,16 +1,18 @@
+const isNumber = require("../Tools/NumberCheck");
+
 class generator {
 
   getInput() {
-    const input = "Circle radius: " + Math.round(Math.random() * 10);
+    const input = Math.round(Math.random() * 10);
     return input;
   }
 
   validateInput(originalInput, usersAnswer) {
 
     try {
-      originalInput = originalInput.split(":")[1].trim();
+      if (!isNumber(usersAnswer) || !isNumber(originalInput)) return false;
 
-      let expectedSolution = Math.round(Math.PI * parseInt(originalInput) * parseInt(originalInput));
+      let expectedSolution = Math.round(Math.PI * originalInput * originalInput);
 
       return expectedSolution === parseInt(usersAnswer);
 

@@ -4,6 +4,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/users-error.js");
+const LocalValidaionHelper = require("../components/Local-validation-helper");
 
 const WARNINGS = {
   addUserUnsupportedKeys: {
@@ -21,17 +22,8 @@ class UsersAbl {
     this.dao = DaoFactory.getDao("users");
   }
 
-  async getUser(awid, dtoIn) {
-    let validationResult = this.validator.validate("getUserDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.getUserUnsupportedKeys,
-      Errors.AddUser.InvalidDtoIn
-    );
+  async getUser(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 
     let dtoOut = { uuAppErrorMap };
     try {
@@ -44,17 +36,8 @@ class UsersAbl {
     return dtoOut;
   }
 
-  async addUser(awid, dtoIn) {
-    let validationResult = this.validator.validate("userDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.addUserUnsupportedKeys,
-      Errors.GetUser.InvalidDtoIn
-    );
+  async addUser(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 
     try {
       await this.dao.create(dtoIn);

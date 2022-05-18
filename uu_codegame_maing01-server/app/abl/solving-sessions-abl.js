@@ -4,6 +4,7 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/solving-sessions-error.js");
+const LocalValidationHelper = require("../components/Local-validation-helper");
 
 const WARNINGS = {
   createSolvingSessionUnsupportedKeys: {
@@ -33,7 +34,7 @@ class SolvingSessionsAbl {
     this.dao = DaoFactory.getDao("solvingSessions");
   }
 
-  async calculateUserDifficulty(awid, dtoIn) {
+  async calculateUserDifficulty(uri, dtoIn) {
 
     try {
 
@@ -66,17 +67,8 @@ class SolvingSessionsAbl {
 
   }
 
-  async updateRating(awid, dtoIn) {
-    let validationResult = this.validator.validate("updateSessionRatingDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.updateRatingSessionUnsupportedKeys,
-      Errors.UpdateRating.InvalidDtoIn
-    );
+  async updateRating(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidationHelper.validate(uri, dtoIn);
 
     try {
       await this.dao.update(dtoIn);
@@ -90,16 +82,7 @@ class SolvingSessionsAbl {
   }
 
   async getSession(awid, dtoIn) {
-    let validationResult = this.validator.validate("getSolvingSessionDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.getSolvingSessionUnsupportedKeys,
-      Errors.GetSession.InvalidDtoIn
-    );
+    let uuAppErrorMap = LocalValidationHelper.validate(awid, dtoIn);
 
     let dtoOut = { uuAppErrorMap };
 
@@ -112,17 +95,8 @@ class SolvingSessionsAbl {
     return dtoOut;
   }
 
-  async validateResult(awid, dtoIn) {
-    let validationResult = this.validator.validate("validateResultDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.validateResultUnsupportedKeys,
-      Errors.ValidateResult.InvalidDtoIn
-    );
+  async validateResult(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidationHelper.validate(uri, dtoIn);
 
     let inputValid = false;
 
@@ -158,17 +132,8 @@ class SolvingSessionsAbl {
 
   }
 
-  async getInput(awid, dtoIn) {
-    let validationResult = this.validator.validate("getInputDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.getInputUnsupportedKeys,
-      Errors.GetInput.InvalidDtoIn
-    );
+  async getInput(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidationHelper.validate(uri, dtoIn);
 
     let generatedInput = {};
 
@@ -182,24 +147,15 @@ class SolvingSessionsAbl {
         input: generatedInput
       });
     } catch (e) {
-      throw new Errors.GetSession.InvalidDtoIn({ cause: e });
+      throw e;
     }
 
     return { generatedInput, uuAppErrorMap };
 
   }
 
-  async updateSolvingSession(awid, dtoIn) {
-    let validationResult = this.validator.validate("sessionDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.updateSolvingSessionUnsupportedKeys,
-      Errors.UpdateSolvingSession.InvalidDtoIn
-    );
+  async updateSolvingSession(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidationHelper.validate(uri, dtoIn);
 
     try {
       await this.dao.update(dtoIn);
@@ -208,17 +164,8 @@ class SolvingSessionsAbl {
     }
   }
 
-  async createSolvingSession(awid, dtoIn) {
-    let validationResult = this.validator.validate("sessionDtoIn", dtoIn);
-    let uuAppErrorMap = {};
-
-    uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      uuAppErrorMap,
-      WARNINGS.createSolvingSessionUnsupportedKeys,
-      Errors.CreateSolvingSession.InvalidDtoIn
-    );
+  async createSolvingSession(uri, dtoIn) {
+    let uuAppErrorMap = LocalValidationHelper.validate(uri, dtoIn);
 
     let foundSession = {};
 
