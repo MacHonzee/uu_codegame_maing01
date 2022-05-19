@@ -1,5 +1,5 @@
 function isNumber(n) {
-  return ! isNaN (n-0);
+  return !isNaN(n - 0);
 }
 
 module.exports = isNumber;

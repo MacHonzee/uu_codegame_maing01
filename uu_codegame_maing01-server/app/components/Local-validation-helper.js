@@ -2,6 +2,9 @@ const { Validator } = require("uu_appg01_server").Validation;
 const { ValidationHelper: UuValidationHelper } = require("uu_appg01_server").AppServer;
 const CodeGameMainUseCaseError = require("../api/errors/codegame-main-use-case-error");
 
+// FIXME JR: název souboru by měl odpovídat třídě ideálně, takže buď přejmenuj soubor,
+// nebo přejmenuje třídu na něco jiného, např. DtoValidator nebo ValidationComponent nebo nevím co,
+// a k tomu pak i soubor tedy
 class ValidationHelper {
   constructor() {
     this.validator = Validator.load();

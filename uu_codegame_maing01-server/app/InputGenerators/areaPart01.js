@@ -1,5 +1,8 @@
 const isNumber = require("../Tools/NumberCheck");
 
+// FIXME JR: nějaké standardy
+// 1) složky se pojmenovávají s malým písmenem na začátku
+// 2) a třídy naopak s velkým, takže class Generator
 class generator {
 
   getInput() {

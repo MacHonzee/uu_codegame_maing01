@@ -3,6 +3,7 @@
 const CodegameMainUseCaseError = require("./codegame-main-use-case-error.js");
 const ASSIGNMENTS_ERROR_PREFIX = `${CodegameMainUseCaseError.ERROR_PREFIX}assignments/`;
 
+// FIXME JR: opět smaž nepoužívané errory, např. InvalidDtoIn Ti nahradí ten ValidationHelper
 const CreateAssignment = {
   UC_CODE: `${ASSIGNMENTS_ERROR_PREFIX}createAssignment/`,
   InvalidDtoIn: class extends CodegameMainUseCaseError {

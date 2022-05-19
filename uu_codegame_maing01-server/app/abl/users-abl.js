@@ -36,6 +36,8 @@ class UsersAbl {
     return dtoOut;
   }
 
+  // FIXME JR: nerozumím, proč potřebuješ správu userů? a už vůbec nevím, k čemu jsou completedParts,
+  // to by mělo být zjistitelné ze solving-sessions teoreticky
   async addUser(uri, dtoIn) {
     let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 

@@ -4,6 +4,7 @@ const { UuObjectDao } = require("uu_appg01_server").ObjectStore;
 class SolvingSessionsMongo extends UuObjectDao {
 
   async createSchema() {
+    // FIXME JR: chybí Ti tu indexy
   }
 
   async create(uuObject) {
@@ -11,6 +12,7 @@ class SolvingSessionsMongo extends UuObjectDao {
   }
 
   async update(uuObject) {
+    // FIXME JR: fuj překlep
     let filter = {
       sovler: uuObject.sovler,
       assignmentId: uuObject.assignmentId

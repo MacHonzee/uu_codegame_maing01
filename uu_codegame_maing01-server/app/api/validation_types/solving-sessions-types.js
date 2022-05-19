@@ -1,7 +1,8 @@
 /* eslint-disable */
 
 const createSolvingSessionDtoInType = shape({
-
+  // FIXME JR: solver by spíš mělo být uuIdentity() validace
+  // FIXME JR: je tu teda hoodně věcí required, skutečně to je potřeba?
   solver: string().isRequired(),
   solverName: string().isRequired(),
   assignmentId: string().isRequired(),
