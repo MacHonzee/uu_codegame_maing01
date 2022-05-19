@@ -62,7 +62,7 @@ class SolvingSessionsAbl {
       return assignmentRatings;
 
     } catch (e) {
-      throw e;
+      throw new Errors.CalculateUserDifficulty.InvalidDtoIn({ cause: e });
     }
 
   }
@@ -73,7 +73,7 @@ class SolvingSessionsAbl {
     try {
       await this.dao.update(dtoIn);
     } catch (e) {
-      throw  e;
+      throw  new Errors.UpdateRating.InvalidDtoIn({ cause: e });
     }
 
     const dtoOut = { ...dtoIn, uuAppErrorMap };
@@ -89,7 +89,7 @@ class SolvingSessionsAbl {
     try {
       dtoOut.session = await this.dao.getOne(dtoIn.solver, dtoIn.assignmentId);
     } catch (e) {
-      throw e;
+      throw new Errors.GetSession.InvalidDtoIn({ cause: e });
     }
 
     return dtoOut;
@@ -125,7 +125,7 @@ class SolvingSessionsAbl {
       await this.dao.update(updatedValue);
 
     } catch (e) {
-      throw e.message;
+      throw new Errors.ValidateResult.InvalidDtoIn({cause : e});
     }
 
     return { inputValid, uuAppErrorMap };
@@ -147,7 +147,7 @@ class SolvingSessionsAbl {
         input: generatedInput
       });
     } catch (e) {
-      throw e;
+      throw new Errors.GetInput.InvalidDtoIn({cause : e});
     }
 
     return { generatedInput, uuAppErrorMap };
@@ -177,7 +177,7 @@ class SolvingSessionsAbl {
       }
 
     } catch (e) {
-      throw e.message;
+      throw new Errors.CreateSolvingSession.InvalidDtoIn({cause : e});
     }
 
     let dtoOut = { session: foundSession, uuAppErrorMap };

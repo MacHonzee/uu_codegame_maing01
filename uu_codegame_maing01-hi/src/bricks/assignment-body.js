@@ -66,7 +66,7 @@ const AssignmentBody = createComponent({
         });
 
       } catch (e) {
-        console.log(e.message);
+        AssignmentBody.alr.show();
       }
     };
 
@@ -99,7 +99,7 @@ const AssignmentBody = createComponent({
         }
 
       } catch (e) {
-        console.log(e.message);
+        AssignmentBody.alr.show();
       }
 
     };
@@ -135,11 +135,15 @@ const AssignmentBody = createComponent({
     const updateRating = async (value) => {
       setRating(value);
 
-      await Calls.updateDifficultyRating({
-        solver: props.session.solver,
-        assignmentId: props.prevSession.assignmentId,
-        difficulty: value
-      });
+      try {
+        await Calls.updateDifficultyRating({
+          solver: props.session.solver,
+          assignmentId: props.prevSession.assignmentId,
+          difficulty: value
+        });
+      } catch (e) {
+        AssignmentBody.alr.show();
+      }
     }
 
     //@@viewOff:interface
@@ -161,6 +165,14 @@ const AssignmentBody = createComponent({
 
         </UU5.Bricks.Card>
         <UU5.Bricks.Modal ref_={modal => AssignmentBody.modal = modal}/>
+
+        <UU5.Bricks.Alert
+          hidden
+          content={"Could not contatct the server!"}
+          ref_={(alr) => AssignmentBody.alr = alr}
+          colorSchema={"red"}
+        />
+
       </UU5.Bricks.Div>
     );
     //@@viewOff:render

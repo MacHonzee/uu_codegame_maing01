@@ -24,7 +24,7 @@ class AssignmentsAbl {
   }
 
   async getFullAssignment(uri, dtoIn) {
-   let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
+    let uuAppErrorMap = LocalValidaionHelper.validate(uri, dtoIn);
 
     let dtoOut = { uuAppErrorMap };
 
@@ -54,7 +54,7 @@ class AssignmentsAbl {
       dtoOut.assignment = fullAssignment;
 
     } catch (e) {
-      throw e;
+      throw new Errors.GetFullAssignment.InvalidDtoIn({ cause: e });
     }
 
     return dtoOut;
@@ -87,7 +87,7 @@ class AssignmentsAbl {
     try {
       await this.dao.create(dtoIn);
     } catch (e) {
-      throw e;
+      throw new Errors.CreateAssignment.InvalidDtoIn({ cause: e });
     }
 
     let dtoOut = {

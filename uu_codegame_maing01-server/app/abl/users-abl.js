@@ -30,7 +30,7 @@ class UsersAbl {
       let user = await this.dao.getOne(dtoIn.userId);
       dtoOut.user = user;
     } catch (e) {
-      throw  e;
+      throw new Errors.GetUser.InvalidDtoIn({cause : e});
     }
 
     return dtoOut;
@@ -42,7 +42,6 @@ class UsersAbl {
     try {
       await this.dao.create(dtoIn);
     } catch (e) {
-      return e
     }
 
     let dtoOut = { user: dtoIn, uuAppErrorMap };

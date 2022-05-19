@@ -71,7 +71,13 @@ const UpdateRating = {
 
 const CalculateUserDifficulty = {
   UC_CODE: `${SOLVING_SESSIONS_ERROR_PREFIX}calculateUserDifficulty/`,
-  
+  InvalidDtoIn: class extends CodegameMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${CalculateUserDifficulty.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  }
 };
 
 module.exports = {

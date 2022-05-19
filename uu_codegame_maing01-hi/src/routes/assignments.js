@@ -66,10 +66,10 @@ let Assignments = createComponent({
         for (const [i, assign] of recievedAssignments.entries()) {
           assignViews.push(<AssignmentView key={i} {...assign}/>);
         }
-
         setAssignments(assignViews);
 
       } catch (e) {
+        setTimeout(() => Assignments.alr.show(), 1000);
         setAssignments([]);
       }
 
@@ -87,6 +87,13 @@ let Assignments = createComponent({
           {assignments}
 
         </UU5.Bricks.Well>
+
+        <UU5.Bricks.Alert
+          hidden
+          content={"Could not contatct the server!"}
+          ref_={(alr) => Assignments.alr = alr}
+          colorSchema={"red"}
+        />
 
       </>
     );

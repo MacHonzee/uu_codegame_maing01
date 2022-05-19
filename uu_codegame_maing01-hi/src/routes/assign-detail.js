@@ -1,7 +1,9 @@
 //@@viewOn:imports
-import { createComponent, useEffect, useRoute, useState } from "uu5g05";
+import { createComponent, useEffect, useRef, useRoute, useState } from "uu5g05";
 import Config from "./config/config.js";
 import * as UU5 from "uu5g04";
+import "uu5g04-bricks";
+import "uu5g04-forms"
 import RouteBar from "../core/route-bar";
 import AssignmentBody from "../bricks/assignment-body";
 import Calls from "../calls";
@@ -113,7 +115,7 @@ let AssignDetail = createComponent({
         ))
 
       } catch (e) {
-        console.log(e.message);
+        AssignDetail.alr.show();
       }
     };
 
@@ -130,6 +132,13 @@ let AssignDetail = createComponent({
           {bodies}
 
         </UU5.Bricks.Well>
+
+        <UU5.Bricks.Alert
+          hidden
+          content={"Could not contatct the server!"}
+          ref_={(alr) => AssignDetail.alr = alr}
+          colorSchema={"red"}
+        />
       </>
     );
 
